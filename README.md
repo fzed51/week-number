@@ -1,75 +1,67 @@
-# React + TypeScript + Vite
+# WEEK-NUMBER
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+**Week-Number** est une application web simple et élégante développée en React et TypeScript qui affiche le numéro de la semaine courante selon le calendrier ISO 8601. L'application calcule automatiquement :
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Le numéro de semaine de la date actuelle (1-52/53)
+- Les dates de début et fin de la semaine courante
+- Un affichage formaté en français des dates
 
-## React Compiler
+L'interface présente ces informations dans une carte claire et lisible, parfaite pour connaître rapidement dans quelle semaine de l'année nous nous trouvons.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Installation
 
-Note: This will impact Vite dev & build performances.
+### Prérequis
 
-## Expanding the ESLint configuration
+- [Node.js](https://nodejs.org/) (version 18 ou supérieure)
+- npm ou yarn
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Étapes d'installation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Cloner le projet**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+   ```bash
+   git clone <url-du-repository>
+   cd week-number
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. **Installer les dépendances**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+   ```bash
+   yarn
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+3. **Lancer en mode développement**
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+   ```bash
+   yarn dev
+   ```
+
+   L'application sera accessible à l'adresse `http://localhost:5173`
+
+4. **Construire pour la production**
+
+   ```bash
+   yarn build
+   ```
+
+   Les fichiers de production seront générés dans le dossier `dist/`
+
+### Scripts disponibles
+
+- `yarn dev` : Lance le serveur de développement
+- `yarn build` : Construit l'application pour la production
+- `yarn lint` : Vérifie le code avec ESLint
+- `yarn lint:fix` : Corrige automatiquement les erreurs ESLint
+- `yarn format` : Formate le code avec Prettier
+- `yarn format:check` : Vérifie le formatage du code
+- `yarn preview` : Prévisualise la version de production
+
+## Technologies utilisées
+
+- **React 19** - Interface utilisateur
+- **TypeScript** - Typage statique
+- **Vite** - Outil de build rapide
+- **ESLint** - Analyse statique du code
+- **Prettier** - Formatage du code

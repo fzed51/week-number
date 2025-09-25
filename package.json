@@ -1,5 +1,6 @@
 {
   "name": "week-number",
+  "description": "A tiny project to get the week number of a given date.",
   "private": true,
   "version": "0.0.0",
   "type": "module",
