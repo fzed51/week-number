@@ -58,10 +58,22 @@ L'interface présente ces informations dans une carte claire et lisible, parfait
 - `yarn format:check` : Vérifie le formatage du code
 - `yarn preview` : Prévisualise la version de production
 
+### Tests
+
+Le projet utilise **Vitest** pour les tests unitaires :
+
+- `npm test` : Lance les tests en mode watch
+- `npm run test:run` : Exécute les tests une seule fois
+- `npm run test:ui` : Interface utilisateur pour les tests
+- `npm run test:coverage` : Génère un rapport de couverture de code
+
+Voir [TESTS.md](./TESTS.md) pour plus de détails sur les tests.
+
 ## Technologies utilisées
 
 - **React 19** - Interface utilisateur
 - **TypeScript** - Typage statique
 - **Vite** - Outil de build rapide
+- **Vitest** - Framework de test
 - **ESLint** - Analyse statique du code
 - **Prettier** - Formatage du code
