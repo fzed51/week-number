@@ -8,17 +8,17 @@ const xdescribe = (..._: unknown[]) => {
 
 describe("dateUtils", () => {
   describe("getWeekNumber", () => {
-    it("should return 1 for first week of the year", () => {
+    it("should return 1 for first week of 2022", () => {
       const date = new Date(2022, 0, 1) // 1er janvier 2024
       const weekNumber = getWeekNumber(date)
       expect(weekNumber).toBe(52)
     })
-    it("should return 1 for first week of the year", () => {
+    it("should return 1 for first week of 2023", () => {
       const date = new Date(2023, 0, 1) // 1er janvier 2024
       const weekNumber = getWeekNumber(date)
       expect(weekNumber).toBe(52)
     })
-    it("should return 1 for first week of the year", () => {
+    it("should return 1 for first week of 2024", () => {
       const date = new Date(2024, 0, 1) // 1er janvier 2024
       const weekNumber = getWeekNumber(date)
       expect(weekNumber).toBe(1)
