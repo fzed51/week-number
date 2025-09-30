@@ -2,9 +2,9 @@ import { describe, it, expect } from "vitest"
 import { getWeekNumber, getWeekDates } from "./dateUtils"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const xdescribe = (..._: unknown[]) => {
-  return
-}
+// const xdescribe = (..._: unknown[]) => {
+//   return
+// }
 
 describe("dateUtils", () => {
   describe("getWeekNumber", () => {
@@ -94,7 +94,7 @@ describe("dateUtils", () => {
     })
   })
 
-  xdescribe("getWeekDates", () => {
+  describe("getWeekDates", () => {
     it("should return correct start and end dates for first week", () => {
       const { start, end } = getWeekDates(1, 2024)
 
@@ -137,7 +137,7 @@ describe("dateUtils", () => {
     })
   })
 
-  xdescribe("Integration tests", () => {
+  describe("Integration tests", () => {
     it("should have consistent week numbers when using both functions", () => {
       const { start, end } = getWeekDates(25, 2024)
 
