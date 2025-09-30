@@ -52,6 +52,38 @@ describe("dateUtils", () => {
       weekNumber = getWeekNumber(date)
       expect(weekNumber).toBe(8)
     })
+    it("should return 12 for 23 march 2025 and 13 the next day", () => {
+      let date = new Date(2025, 2, 23) // 23 mars 2025
+      let weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(12)
+      date = new Date(2025, 2, 24) // 24 mars 2025
+      weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(13)
+    })
+    it("should return 13 for 30 march 2025 and 14 the next day", () => {
+      let date = new Date(2025, 2, 30) // 30 mars 2025
+      let weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(13)
+      date = new Date(2025, 2, 31) // 31 mars 2025
+      weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(14)
+    })
+    it("should return 14 for 6 april 2025 and 15 the next day", () => {
+      let date = new Date(2025, 3, 6) // 6 avril 2025
+      let weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(14)
+      date = new Date(2025, 3, 7) // 7 avril 2025
+      weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(15)
+    })
+    it("should return 16 for 20 april 2025 and 17 the next day", () => {
+      let date = new Date(2025, 3, 20) // 20 avril 2025
+      let weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(16)
+      date = new Date(2025, 3, 21) // 21 avril 2025
+      weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(17)
+    })
     it("should return 39 for 28 septembre 2025 and 40 for 29 septembre 2025", () => {
       let date = new Date(2025, 8, 28) // 28 septembre 2025
       let weekNumber = getWeekNumber(date)
