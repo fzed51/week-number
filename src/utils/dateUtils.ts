@@ -4,9 +4,41 @@
  * @returns Le numéro de semaine (1-52/53)
  */
 export function getWeekNumber(date: Date): number {
-  const firstDayOfYear = new Date(date.getFullYear(), 0, 1)
-  const pastDaysOfYear = (date.getTime() - firstDayOfYear.getTime()) / 86400000
-  return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7)
+  // Copie de la date pour éviter les effets de bord
+  const d = new Date(date.getTime())
+
+  // Régler l'heure à midi pour éviter les problèmes de changement d'heure
+  d.setHours(12, 0, 0, 0)
+
+  // Jour de la semaine (0 = dimanche, 1 = lundi, ..., 6 = samedi)
+  const dayOfWeek = d.getDay()
+
+  // Convertir pour que lundi = 0, ..., dimanche = 6
+  const mondayBasedDay = (dayOfWeek + 6) % 7
+
+  // Trouver le jeudi de cette semaine
+  const thursday = new Date(d)
+  thursday.setDate(d.getDate() - mondayBasedDay + 3) // 3 = jeudi (lundi=0, mardi=1, mercredi=2, jeudi=3)
+
+  // L'année ISO 8601 est l'année du jeudi de cette semaine
+  const year = thursday.getFullYear()
+
+  // Trouver le jeudi de la première semaine de cette année ISO
+  const jan4 = new Date(year, 0, 4) // 4 janvier
+  jan4.setHours(12, 0, 0, 0)
+
+  const jan4DayOfWeek = jan4.getDay()
+  const jan4MondayBased = (jan4DayOfWeek + 6) % 7
+
+  // Le jeudi de la semaine contenant le 4 janvier
+  const firstThursday = new Date(jan4)
+  firstThursday.setDate(jan4.getDate() - jan4MondayBased + 3)
+
+  // Calculer la différence en semaines
+  const diffInMs = thursday.getTime() - firstThursday.getTime()
+  const diffInWeeks = Math.round(diffInMs / (7 * 24 * 60 * 60 * 1000))
+
+  return diffInWeeks + 1
 }
 
 /**
