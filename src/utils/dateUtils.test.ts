@@ -23,14 +23,41 @@ describe("dateUtils", () => {
       const weekNumber = getWeekNumber(date)
       expect(weekNumber).toBe(1)
     })
-    it("should return 39 for 28 septembre 2025", () => {
-      const date = new Date(2025, 8, 28) // 28 septembre 2025
+    it("should return 1 for first week of 2025", () => {
+      const date = new Date(2025, 0, 1) // 1er janvier 2025
       const weekNumber = getWeekNumber(date)
-      expect(weekNumber).toBe(39)
+      expect(weekNumber).toBe(1)
     })
-    it("should return 40 for 29 septembre 2025", () => {
-      const date = new Date(2025, 8, 29) // 29 septembre 2025
-      const weekNumber = getWeekNumber(date)
+    it("should return 1 for 5 january 2025 and 2 the next day", () => {
+      let date = new Date(2025, 0, 5) // 5 janvier 2025
+      let weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(1)
+      date = new Date(2025, 0, 6) // 6 janvier 2025
+      weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(2)
+    })
+    it("should return 2 for 12 january 2025 and 3 the next day", () => {
+      let date = new Date(2025, 0, 12) // 12 janvier 2025
+      let weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(2)
+      date = new Date(2025, 0, 13) // 13 janvier 2025
+      weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(3)
+    })
+    it("should return 7 for 16 february 2025 and 8 the next day", () => {
+      let date = new Date(2025, 1, 16) // 16 février 2025
+      let weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(7)
+      date = new Date(2025, 1, 17) // 17 février 2025
+      weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(8)
+    })
+    it("should return 39 for 28 septembre 2025 and 40 for 29 septembre 2025", () => {
+      let date = new Date(2025, 8, 28) // 28 septembre 2025
+      let weekNumber = getWeekNumber(date)
+      expect(weekNumber).toBe(39)
+      date = new Date(2025, 8, 29) // 29 septembre 2025
+      weekNumber = getWeekNumber(date)
       expect(weekNumber).toBe(40)
     })
   })
