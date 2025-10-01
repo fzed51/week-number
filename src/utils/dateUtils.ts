@@ -63,3 +63,90 @@ export function getWeekDates(
 
   return { start: weekStart, end: weekEnd }
 }
+
+/**
+ * Obtient le nom du mois en français
+ */
+export function getMonthName(date: Date): string {
+  const months = [
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Août",
+    "Septembre",
+    "Octobre",
+    "Novembre",
+    "Décembre",
+  ]
+  return months[date.getMonth()]
+}
+
+/**
+ * Génère les données du calendrier pour un mois donné
+ */
+export interface CalendarDay {
+  date: Date
+  day: number
+  isCurrentMonth: boolean
+  weekNumber: number
+}
+
+export interface CalendarWeek {
+  weekNumber: number
+  days: CalendarDay[]
+}
+
+export function getCalendarData(date: Date): {
+  month: string
+  year: number
+  weeks: CalendarWeek[]
+} {
+  const year = date.getFullYear()
+  const month = date.getMonth()
+  const monthName = getMonthName(date)
+
+  // Premier jour du mois
+  const firstDayOfMonth = new Date(year, month, 1)
+  // Dernier jour du mois
+  const lastDayOfMonth = new Date(year, month + 1, 0)
+
+  // Premier lundi à afficher (peut être du mois précédent)
+  const startDate = new Date(firstDayOfMonth)
+  const firstDayWeekday = (firstDayOfMonth.getDay() + 6) % 7 // Lundi = 0
+  startDate.setDate(firstDayOfMonth.getDate() - firstDayWeekday)
+
+  // Dernier dimanche à afficher (peut être du mois suivant)
+  const endDate = new Date(lastDayOfMonth)
+  const lastDayWeekday = (lastDayOfMonth.getDay() + 6) % 7 // Lundi = 0
+  endDate.setDate(lastDayOfMonth.getDate() + (6 - lastDayWeekday))
+
+  const weeks: CalendarWeek[] = []
+  const currentDate = new Date(startDate)
+
+  while (currentDate <= endDate) {
+    const weekNumber = getWeekNumber(currentDate)
+    const days: CalendarDay[] = []
+
+    // Générer les 7 jours de la semaine
+    for (let i = 0; i < 7; i++) {
+      const dayDate = new Date(currentDate)
+      dayDate.setDate(currentDate.getDate() + i)
+
+      days.push({
+        date: new Date(dayDate),
+        day: dayDate.getDate(),
+        isCurrentMonth: dayDate.getMonth() === month,
+        weekNumber: getWeekNumber(dayDate),
+      })
+    }
+
+    weeks.push({ weekNumber, days })
+    currentDate.setDate(currentDate.getDate() + 7)
+  }
+
+  return { month: monthName, year, weeks }
+}
