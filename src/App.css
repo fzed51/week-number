@@ -111,10 +111,11 @@ body {
   border-collapse: collapse;
   font-size: 14px;
   box-sizing: border-box;
-  >* {
+  > * {
     box-sizing: inherit;
   }
-  th, td {
+  th,
+  td {
     padding: 8px 4px;
     min-width: 29px;
     min-height: 29px;
@@ -163,19 +164,24 @@ body {
 }
 
 .other-month {
-  color: #bbb ;
+  opacity: 0.5;
   font-weight: 400;
 }
 
 .current-day {
-  background: #2575fc ;
-  color: white ;
+  background: #2575fc;
+  color: white;
   font-weight: 700;
   border-radius: 50%;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.holiday {
+  color: #dc3545 !important;
+  font-weight: 700 !important;
 }
 
 @media (max-width: 480px) {
