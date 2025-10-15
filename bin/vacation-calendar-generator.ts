@@ -5,19 +5,10 @@ import { join } from 'node:path';
 import * as ical from 'node-ical';
 
 interface VacationEvent {
-  id: string;
   summary: string;
-  description?: string;
   start: string;
   end: string;
   location?: string;
-  categories?: string[];
-}
-
-interface VacationCalendar {
-  source: string;
-  generatedAt: string;
-  events: VacationEvent[];
 }
 
 interface ICalEvent {
@@ -54,7 +45,7 @@ async function fetchIcalData(url: string): Promise<ICalData> {
 /**
  * Convertit les données iCal en format JSON structuré
  */
-function convertIcalToJson(icalData: ICalData, sourceUrl: string): VacationCalendar {
+function convertIcalToJson(icalData: ICalData): VacationEvent[] {
   const events: VacationEvent[] = [];
   
   console.log(`🔄 Conversion des événements...`);
@@ -65,23 +56,14 @@ function convertIcalToJson(icalData: ICalData, sourceUrl: string): VacationCalen
     // Ne traiter que les événements (pas les métadonnées du calendrier)
     if (event.type === 'VEVENT') {
       const vacationEvent: VacationEvent = {
-        id: event.uid || key,
         summary: event.summary || 'Événement sans titre',
         start: event.start?.toISOString() || '',
         end: event.end?.toISOString() || '',
       };
       
-      // Ajouter les champs optionnels s'ils existent
-      if (event.description) {
-        vacationEvent.description = event.description;
-      }
-      
+      // Ajouter le champ location s'il existe
       if (event.location) {
         vacationEvent.location = event.location;
-      }
-      
-      if (event.categories && Array.isArray(event.categories)) {
-        vacationEvent.categories = event.categories;
       }
       
       events.push(vacationEvent);
@@ -93,19 +75,15 @@ function convertIcalToJson(icalData: ICalData, sourceUrl: string): VacationCalen
   
   console.log(`✅ ${events.length} événements convertis`);
   
-  return {
-    source: sourceUrl,
-    generatedAt: new Date().toISOString(),
-    events,
-  };
+  return events;
 }
 
 /**
  * Sauvegarde les données JSON dans un fichier
  */
-async function saveJsonFile(data: VacationCalendar, outputPath: string): Promise<void> {
+async function saveJsonFile(events: VacationEvent[], outputPath: string): Promise<void> {
   try {
-    const jsonContent = JSON.stringify(data, null, 2);
+    const jsonContent = JSON.stringify(events, null, 2);
     await writeFile(outputPath, jsonContent, 'utf-8');
     console.log(`💾 Fichier JSON sauvegardé: ${outputPath}`);
   } catch (error) {
@@ -129,27 +107,26 @@ async function main() {
     const icalData = await fetchIcalData(ICAL_URL);
     
     // 2. Convertir en JSON
-    const jsonData = convertIcalToJson(icalData, ICAL_URL);
+    const events = convertIcalToJson(icalData);
     
     // 3. Sauvegarder le fichier JSON
-    await saveJsonFile(jsonData, OUTPUT_FILE);
+    await saveJsonFile(events, OUTPUT_FILE);
     
     console.log('=' .repeat(50));
     console.log('🎉 Conversion terminée avec succès !');
     console.log(`📊 Statistiques:`);
-    console.log(`   - Événements traités: ${jsonData.events.length}`);
+    console.log(`   - Événements traités: ${events.length}`);
     console.log(`   - Fichier de sortie: ${OUTPUT_FILE}`);
-    console.log(`   - Généré le: ${jsonData.generatedAt}`);
     
     // Afficher un aperçu des prochains événements
     const now = new Date();
-    const upcomingEvents = jsonData.events
-      .filter(event => new Date(event.start) > now)
+    const upcomingEvents = events
+      .filter((event: VacationEvent) => new Date(event.start) > now)
       .slice(0, 3);
     
     if (upcomingEvents.length > 0) {
       console.log(`\n📅 Prochains événements:`);
-      upcomingEvents.forEach((event, index) => {
+      upcomingEvents.forEach((event: VacationEvent, index: number) => {
         const startDate = new Date(event.start).toLocaleDateString('fr-FR');
         console.log(`   ${index + 1}. ${event.summary} - ${startDate}`);
       });
