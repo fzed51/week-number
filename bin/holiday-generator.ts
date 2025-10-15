@@ -188,10 +188,15 @@ class HolidayCalculator {
   }
 
   /**
-   * Formate une date au format YYYY-MM-DD
+   * Formate une date au format YYYY-MM-DD selon la locale de Paris
    */
   private static formatDate(date: Date): string {
-    return date.toISOString().split('T')[0];
+    return date.toLocaleDateString('fr-FR', {
+      timeZone: 'Europe/Paris',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).split('/').reverse().join('-');
   }
 }
 
