@@ -160,6 +160,7 @@ body {
 }
 
 .calendar-day:hover {
+  color: #094d91;
   background-color: #f8f9fa;
 }
 
@@ -182,6 +183,10 @@ body {
 .holiday {
   color: #dc3545 !important;
   font-weight: 700 !important;
+}
+
+.vacation {
+  background: #2575fc44;
 }
 
 @media (max-width: 480px) {
