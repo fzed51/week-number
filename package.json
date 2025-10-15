@@ -16,10 +16,13 @@
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "generate:holidays": "npx tsx bin/holiday-generator.ts"
+    "generate:holidays": "npx tsx bin/holiday-generator.ts",
+    "generate:vacations": "npx tsx bin/vacation-calendar-generator.ts"
   },
   "dependencies": {
+    "@types/node": "^24.7.2",
     "clsx": "^2.1.1",
+    "node-ical": "^0.21.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
