@@ -1,4 +1,5 @@
 import clsx from "clsx"
+import { useState } from "react"
 import { useHolidays } from "../hooks/useHolidays"
 import { useVacations } from "../hooks/useVacations"
 import { getCalendarData } from "../utils/dateUtils"
@@ -8,15 +9,51 @@ interface CalendarCardProps {
 }
 
 export function CalendarCard({ currentDate }: CalendarCardProps) {
+  // État interne pour la navigation du calendrier
+  const [calendarDate, setCalendarDate] = useState(currentDate)
   const { isHoliday } = useHolidays()
   const { isVacation } = useVacations()
 
-  const { month, year, weeks } = getCalendarData(currentDate)
+  const { month, year, weeks } = getCalendarData(calendarDate)
+
+  const goToPreviousMonth = () => {
+    setCalendarDate(prev => {
+      const newDate = new Date(prev)
+      newDate.setMonth(newDate.getMonth() - 1)
+      return newDate
+    })
+  }
+
+  const goToNextMonth = () => {
+    setCalendarDate(prev => {
+      const newDate = new Date(prev)
+      newDate.setMonth(newDate.getMonth() + 1)
+      return newDate
+    })
+  }
 
   return (
     <div className={clsx("week-card", "calendar-card")}>
       <div className={clsx("header", "calendar-header")}>
-        {month} {year}
+        <button
+          type="button"
+          className="nav-button nav-button-prev"
+          onClick={goToPreviousMonth}
+          aria-label="Mois précédent"
+        >
+          ‹
+        </button>
+        <span className="month-year">
+          {month} {year}
+        </span>
+        <button
+          type="button"
+          className="nav-button nav-button-next"
+          onClick={goToNextMonth}
+          aria-label="Mois suivant"
+        >
+          ›
+        </button>
       </div>
       <div className="calendar-container">
         <table className="calendar-table">
