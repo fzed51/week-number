@@ -1,7 +1,7 @@
 import clsx from "clsx"
-import { getCalendarData } from "../utils/dateUtils"
 import { useHolidays } from "../hooks/useHolidays"
 import { useVacations } from "../hooks/useVacations"
+import { getCalendarData } from "../utils/dateUtils"
 
 interface CalendarCardProps {
   currentDate: Date
@@ -10,7 +10,7 @@ interface CalendarCardProps {
 export function CalendarCard({ currentDate }: CalendarCardProps) {
   const { isHoliday } = useHolidays()
   const { isVacation } = useVacations()
-  
+
   const { month, year, weeks } = getCalendarData(currentDate)
 
   return (
@@ -47,8 +47,8 @@ export function CalendarCard({ currentDate }: CalendarCardProps) {
                       className={clsx("calendar-day", {
                         "other-month": !day.isCurrentMonth,
                         "current-day": isCurrentDay,
-                        "holiday": isDayHoliday,
-                        "vacation": isDayVacation,
+                        holiday: isDayHoliday,
+                        vacation: isDayVacation,
                       })}
                     >
                       {day.day}

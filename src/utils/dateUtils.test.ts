@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest"
-import { getWeekNumber, getWeekDates } from "./dateUtils"
+import { describe, expect, it } from "vitest"
+import { getWeekDates, getWeekNumber } from "./dateUtils"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const xdescribe = (..._: unknown[]) => {

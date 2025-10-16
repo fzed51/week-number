@@ -1,7 +1,7 @@
-import { useState, useRef } from "react"
+import { useRef, useState } from "react"
 import "./App.css"
-import { WeekCard } from "./components/WeekCard"
 import { CalendarCard } from "./components/CalendarCard"
+import { WeekCard } from "./components/WeekCard"
 
 export function App() {
   const [currentView, setCurrentView] = useState<1 | 2>(1)

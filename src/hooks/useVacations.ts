@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 
 type VacationEvent = {
-  summary: string;
-  start: string;
-  end: string;
-  location?: string;
+  summary: string
+  start: string
+  end: string
+  location?: string
 }
 
 export function useVacations() {
   const [vacations, setVacations] = useState<VacationEvent[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  
+
   useEffect(() => {
     // Charger le fichier des vacances scolaires
-    fetch('./vacation-calendar.json')
+    fetch("./vacation-calendar.json")
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
@@ -26,7 +26,10 @@ export function useVacations() {
         setError(null)
       })
       .catch(error => {
-        console.error('Erreur lors du chargement des vacances scolaires:', error)
+        console.error(
+          "Erreur lors du chargement des vacances scolaires:",
+          error
+        )
         setError(error.message)
       })
       .finally(() => {
@@ -36,11 +39,11 @@ export function useVacations() {
 
   const isVacation = (date: Date): boolean => {
     const dateTime = date.getTime()
-    
+
     return vacations.some(vacation => {
       const startTime = new Date(vacation.start).getTime()
       const endTime = new Date(vacation.end).getTime()
-      
+
       // Vérifier si la date est dans la période de vacances (incluse)
       return dateTime >= startTime && dateTime <= endTime
     })
@@ -48,21 +51,21 @@ export function useVacations() {
 
   const getVacationPeriod = (date: Date): VacationEvent | null => {
     const dateTime = date.getTime()
-    
+
     const vacation = vacations.find(vacation => {
       const startTime = new Date(vacation.start).getTime()
       const endTime = new Date(vacation.end).getTime()
-      
+
       // Vérifier si la date est dans la période de vacances (incluse)
       return dateTime >= startTime && dateTime <= endTime
     })
-    
+
     return vacation || null
   }
 
   const getUpcomingVacations = (count: number = 3): VacationEvent[] => {
     const now = new Date().getTime()
-    
+
     return vacations
       .filter(vacation => new Date(vacation.start).getTime() > now)
       .slice(0, count)
@@ -87,6 +90,6 @@ export function useVacations() {
     getVacationPeriod,
     getUpcomingVacations,
     getCurrentVacation,
-    getVacationsByYear
+    getVacationsByYear,
   }
 }

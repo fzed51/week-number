@@ -1,5 +1,5 @@
-import { FormattedDate } from "./FormattedDate"
 import { getWeekDates, getWeekNumber } from "../utils/dateUtils"
+import { FormattedDate } from "./FormattedDate"
 
 interface WeekCardProps {
   currentDate: Date
