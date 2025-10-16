@@ -29,11 +29,22 @@ export function App() {
     lastTapRef.current = now
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      switchView()
+    }
+  }
+
   return (
     <div
+      role="switch"
+      aria-checked={currentView === 2}
+      aria-label="Calendar view"
       className="app"
       onDoubleClick={handleDoubleClick}
       onTouchEnd={handleTouchEnd}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
     >
       {currentView === 1 ? (
         <WeekCard currentDate={currentDate} />
