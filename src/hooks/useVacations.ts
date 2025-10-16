@@ -64,7 +64,7 @@ export function useVacations() {
   }
 
   const getUpcomingVacations = (count: number = 3): VacationEvent[] => {
-    const now = new Date().getTime()
+    const now = Date.now()
 
     return vacations
       .filter(vacation => new Date(vacation.start).getTime() > now)

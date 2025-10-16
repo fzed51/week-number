@@ -140,8 +140,8 @@ body {
 }
 
 .week-column {
-  background: #e3f2fd !important;
-  color: #1976d2 !important;
+  background: #e3f2fd;
+  color: #1976d2;
   font-weight: 700;
   width: 40px;
 }
@@ -181,8 +181,8 @@ body {
 }
 
 .holiday {
-  color: #dc3545 !important;
-  font-weight: 700 !important;
+  color: #dc3545;
+  font-weight: 700;
 }
 
 .vacation {
