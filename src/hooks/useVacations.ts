@@ -45,7 +45,7 @@ export function useVacations() {
       const endTime = new Date(vacation.end).getTime()
 
       // Vérifier si la date est dans la période de vacances (incluse)
-      return dateTime >= startTime && dateTime <= endTime
+      return dateTime >= startTime && dateTime < endTime
     })
   }
 
@@ -57,7 +57,7 @@ export function useVacations() {
       const endTime = new Date(vacation.end).getTime()
 
       // Vérifier si la date est dans la période de vacances (incluse)
-      return dateTime >= startTime && dateTime <= endTime
+      return dateTime >= startTime && dateTime < endTime
     })
 
     return vacation || null
